@@ -16,13 +16,13 @@
 
 
     <modules>
-        <module>luoyi-dependencies</module>
-        <module>luoyi-framework</module>
-        <!-- Server 主项目 -->
-        <module>luoyi-business</module>
-        <!-- 各种 module 拓展 -->
-        <module>luoyi-module-system</module>
-        <module>luoyi-module-infra</module>
+<!--        <module>luoyi-dependencies</module>-->
+<!--        <module>luoyi-framework</module>-->
+<!--        <module>luoyi-business</module>-->
+<!--        <module>luoyi-module-system</module>-->
+<!--        <module>luoyi-module-infra</module>-->
+
+
 <!--        <module>yudao-module-member</module>-->
 <!--        <module>yudao-module-bpm</module>-->
 <!--        <module>yudao-module-report</module>-->
@@ -32,6 +32,7 @@
 <!--        <module>yudao-module-crm</module>-->
 <!--        <module>yudao-module-erp</module>-->
 <!--        <module>yudao-module-ai</module>-->
+        <module>luoyi-dependencies</module>
     </modules>
 
     <properties>
