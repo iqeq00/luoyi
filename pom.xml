@@ -32,11 +32,16 @@
 <!--        <module>yudao-module-crm</module>-->
 <!--        <module>yudao-module-erp</module>-->
 <!--        <module>yudao-module-ai</module>-->
+
+        <module>luoyi-business</module>
         <module>luoyi-dependencies</module>
         <module>luoyi-framework</module>
-        <module>luoyi-module-system</module>
+        <module>luoyi-module-ai</module>
         <module>luoyi-module-infra</module>
-        <module>luoyi-business</module>
+        <module>luoyi-module-member</module>
+        <module>luoyi-module-pay</module>
+        <module>luoyi-module-system</module>
+
     </modules>
 
     <properties>
