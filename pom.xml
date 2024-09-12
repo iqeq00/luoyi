@@ -34,6 +34,9 @@
 <!--        <module>yudao-module-ai</module>-->
         <module>luoyi-dependencies</module>
         <module>luoyi-framework</module>
+        <module>luoyi-module-system</module>
+        <module>luoyi-module-infra</module>
+        <module>luoyi-business</module>
     </modules>
 
     <properties>
