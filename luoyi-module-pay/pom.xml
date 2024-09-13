@@ -11,11 +11,16 @@
     </parent>
 
     <artifactId>luoyi-module-pay</artifactId>
+    <packaging>pom</packaging>
 
-    <properties>
-        <maven.compiler.source>17</maven.compiler.source>
-        <maven.compiler.target>17</maven.compiler.target>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    </properties>
+    <name>${project.artifactId}</name>
+    <description>
+        pay 模块，我们放支付业务，提供业务的支付能力。
+        例如说：商户、应用、支付、退款等等
+    </description>
+    <modules>
+        <module>luoyi-module-pay-api</module>
+        <module>luoyi-module-pay-biz</module>
+    </modules>
 
 </project>
