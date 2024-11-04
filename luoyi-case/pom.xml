@@ -10,9 +10,16 @@
         <version>${revision}</version>
     </parent>
 
-    <artifactId>luoyi-business</artifactId>
+    <artifactId>luoyi-case</artifactId>
     <packaging>pom</packaging>
 
-    <name>${project.artifactId}</name>
+    <description>
+        该包是测试组件，每个子包，代表一个组件。
+    </description>
+    <url>https://github.com/iqeq00/luoyi</url>
+
+    <modules>
+        <module>luoyi-case-rocketmq</module>
+    </modules>
 
 </project>

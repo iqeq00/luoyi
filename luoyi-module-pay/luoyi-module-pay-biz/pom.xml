@@ -6,7 +6,7 @@
     <parent>
         <groupId>com.luoyi</groupId>
         <artifactId>luoyi-module-pay</artifactId>
-        <version>0.0.1-snapshot</version>
+        <version>${revision}</version>
     </parent>
 
     <artifactId>luoyi-module-pay-biz</artifactId>

@@ -41,6 +41,7 @@
         <module>luoyi-module-member</module>
         <module>luoyi-module-pay</module>
         <module>luoyi-module-system</module>
+        <module>luoyi-case</module>
 
     </modules>
 
@@ -55,8 +56,8 @@
         <flatten-maven-plugin.version>1.6.0</flatten-maven-plugin.version>
 
         <lombok.version>1.18.34</lombok.version>
-        <spring.boot.version>3.3.3</spring.boot.version>
-        <mapstruct.version>1.6.0</mapstruct.version>
+        <spring.boot.version>3.3.4</spring.boot.version>
+        <mapstruct.version>1.6.2</mapstruct.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 

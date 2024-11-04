@@ -1,0 +1,37 @@
+server:
+  port: 48088
+
+spring:
+  application:
+    name: luoyi-test-rocketmq
+
+
+#rocketmq:
+#  name-server: 127.0.0.1:9876
+#  producer:
+#    group: producer-group
+#  consumer:
+#    group: consumer-group
+
+
+rocketmq:
+  name-server: 127.0.0.1:9876
+  consumer:
+    group: consumer-group
+  #    access-key: abcdef
+  #    secret-key: abcdef
+  # ?????
+  producer:
+    #    access-key: abcdef
+    #    secret-key: abcdef
+    is-on-off: on
+    group: producer-group
+    # ??????????????group?????
+    # ????
+    #namesrvAddr: rmq-cn.cn-hangzhou.rmq.aliyuncs.com:80
+    # ?????? ??1024*4(4M)
+    maxMessageSize: 4096
+    # ????????,??3000
+    sendMsgTimeout: 3000
+    # ?????????????2
+    retryTimesWhenSendFailed: 2
