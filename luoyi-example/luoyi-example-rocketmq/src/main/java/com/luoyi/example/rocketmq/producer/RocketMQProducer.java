@@ -1,4 +1,4 @@
-package com.luoyi.test.rocketmq.producer;
+package com.luoyi.example.rocketmq.producer;
 
 import org.apache.rocketmq.client.producer.SendCallback;
 import org.apache.rocketmq.client.producer.SendResult;

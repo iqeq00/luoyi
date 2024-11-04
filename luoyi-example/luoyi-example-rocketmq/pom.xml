@@ -5,11 +5,11 @@
 
     <parent>
         <groupId>com.luoyi</groupId>
-        <artifactId>luoyi-case</artifactId>
+        <artifactId>luoyi-example</artifactId>
         <version>${revision}</version>
     </parent>
 
-    <artifactId>luoyi-case-rocketmq</artifactId>
+    <artifactId>luoyi-example-rocketmq</artifactId>
     <packaging>jar</packaging>
 
     <name>${project.artifactId}</name>

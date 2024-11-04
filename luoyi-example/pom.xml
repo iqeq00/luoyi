@@ -10,7 +10,7 @@
         <version>${revision}</version>
     </parent>
 
-    <artifactId>luoyi-case</artifactId>
+    <artifactId>luoyi-example</artifactId>
     <packaging>pom</packaging>
 
     <description>
@@ -19,7 +19,7 @@
     <url>https://github.com/iqeq00/luoyi</url>
 
     <modules>
-        <module>luoyi-case-rocketmq</module>
+        <module>luoyi-example-rocketmq</module>
     </modules>
 
 </project>

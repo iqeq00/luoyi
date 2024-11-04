@@ -41,7 +41,7 @@
         <module>luoyi-module-member</module>
         <module>luoyi-module-pay</module>
         <module>luoyi-module-system</module>
-        <module>luoyi-case</module>
+        <module>luoyi-example</module>
 
     </modules>
 

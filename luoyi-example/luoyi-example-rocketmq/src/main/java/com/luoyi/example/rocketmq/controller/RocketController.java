@@ -1,6 +1,6 @@
-package com.luoyi.test.rocketmq.controller;
+package com.luoyi.example.rocketmq.controller;
 
-import com.luoyi.test.rocketmq.producer.RocketMQProducer;
+import com.luoyi.example.rocketmq.producer.RocketMQProducer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
