@@ -35,3 +35,12 @@ rocketmq:
     sendMsgTimeout: 3000
     # ?????????????2
     retryTimesWhenSendFailed: 2
+
+
+dingers:
+  # 使用钉钉机器人, 请根据自己机器人配置信息进行修改
+  ding-talk:
+    prefix: 预警信息
+    open-api: https://oapi.dingtalk.com/robot/send
+    access-token: a18fe48cdbbd87a4266dadb9d117b8cf42148c26a3f9f75e7d35fd3e8efe1d18
+    secret: SEC121035cd8e5970da0ec79ef4e66e44ab17bada751780025c5991ae977e711a39

@@ -1,0 +1,17 @@
+#server:
+#  port: 8088
+
+spring:
+  application:
+    name: luoyi-example-yihu
+
+
+yihu:
+  appcode: YH_SHANGTONG
+  appkey: f770cf3a318f494dce2cd061efd7d3b9
+  # ???? https://open.loyiot.com
+  host: http://openapi.yihuyihu.com
+  api:
+    login: /api/open/third/user/login
+    getToken: /api/open/third/user/getToken
+    createCard: /api/open/third/card/createCardV2
