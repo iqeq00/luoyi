@@ -19,6 +19,7 @@
     <url>https://github.com/iqeq00/luoyi</url>
 
     <modules>
+        <module>luoyi-example-jd</module>
         <module>luoyi-example-rocketmq</module>
         <module>luoyi-example-yihu</module>
         <module>luoyi-example-mybatis</module>
