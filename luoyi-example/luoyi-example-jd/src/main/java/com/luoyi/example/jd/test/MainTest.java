@@ -14,5 +14,6 @@ public class MainTest {
         list.forEach(System.out::println);
 
         System.out.println(CollectionUtils.isEmpty(list));
+
     }
 }
