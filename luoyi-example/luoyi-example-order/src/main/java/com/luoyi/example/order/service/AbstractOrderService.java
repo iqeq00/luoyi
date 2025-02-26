@@ -2,18 +2,22 @@ package com.luoyi.example.order.service;
 
 import com.luoyi.example.order.context.OrderContext;
 import com.luoyi.example.order.dto.BaseOrderDTO;
-import com.luoyi.example.order.enums.OrderType;
+import com.luoyi.example.order.enums.SceneTypeEnum;
 import com.luoyi.example.order.factory.OrderHandlerChain;
 import com.luoyi.example.order.factory.OrderHandlerFactory;
-import com.luoyi.example.order.vo.OrderResult;
+import com.luoyi.example.order.vo.Result;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * 模版抽象类
  */
 public abstract class AbstractOrderService<T extends BaseOrderDTO> {
 
+    @Autowired
+    public OrderHandlerFactory orderHandlerFactory;
+
     // 核心模版方法（公共流程定义）
-    public final OrderResult createOrder(T dto) {
+    public final Result createOrder(T dto) {
         // Step1. 基础校验
         validateBase(dto);
 
@@ -22,6 +26,7 @@ public abstract class AbstractOrderService<T extends BaseOrderDTO> {
 
         // Step3. 构造上下文
         OrderContext context = buildContext(dto);
+        context.setSceneType(SceneTypeEnum.getInstance(dto.getSceneType()));
 
         // Step4. 责任链处理核心逻辑
         executeHandlerChain(context);
@@ -42,15 +47,15 @@ public abstract class AbstractOrderService<T extends BaseOrderDTO> {
 
     // 责任链执行
     private void executeHandlerChain(OrderContext context) {
-        OrderHandlerChain chain = OrderHandlerFactory.createChain(context.getOrderType());
+        OrderHandlerChain chain = orderHandlerFactory.createChain(context.getSceneType());
         chain.execute(context);
     }
 
     // 后置处理钩子（默认实现，子类可选覆盖）
-    protected OrderResult postProcess(OrderContext context) {
-        return new OrderResult(context.getOrderId());
+    protected Result postProcess(OrderContext context) {
+        return Result.success(context.getOrderId());
     }
 
     // 抽象方法：场景类型
-    public abstract OrderType getOrderType();
+    public abstract String getSceneType();
 }

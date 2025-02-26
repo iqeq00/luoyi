@@ -2,6 +2,7 @@ package com.luoyi.example.order.handler;
 
 import com.luoyi.example.order.context.OrderContext;
 import com.luoyi.example.order.enums.OrderType;
+import com.luoyi.example.order.enums.SceneTypeEnum;
 import org.springframework.stereotype.Service;
 
 import java.util.EnumSet;
@@ -26,7 +27,7 @@ public class CouponHandler implements OrderHandler {
     }
 
     @Override
-    public Set<OrderType> supportedTypes() {
-        return EnumSet.of(OrderType.ENTITY);
+    public Set<SceneTypeEnum> supportedTypes() {
+        return EnumSet.of(SceneTypeEnum.ENTITY);
     }
 }

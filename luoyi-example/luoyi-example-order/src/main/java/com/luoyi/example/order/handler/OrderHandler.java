@@ -1,8 +1,7 @@
 package com.luoyi.example.order.handler;
 
 import com.luoyi.example.order.context.OrderContext;
-import com.luoyi.example.order.dto.BaseOrderDTO;
-import com.luoyi.example.order.enums.OrderType;
+import com.luoyi.example.order.enums.SceneTypeEnum;
 
 import java.util.Set;
 
@@ -11,11 +10,12 @@ import java.util.Set;
  */
 public interface OrderHandler {
 
+    // 处理方法
     void handle(OrderContext context);
 
     // 排序
     int getOrder();
 
     // 支持处理的订单类型
-    Set<OrderType> supportedTypes();
+    Set<SceneTypeEnum> supportedTypes();
 }

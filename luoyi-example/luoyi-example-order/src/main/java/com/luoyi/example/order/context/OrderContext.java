@@ -1,6 +1,7 @@
 package com.luoyi.example.order.context;
 
 import com.luoyi.example.order.enums.OrderType;
+import com.luoyi.example.order.enums.SceneTypeEnum;
 import lombok.Data;
 
 import java.util.Map;
@@ -9,7 +10,7 @@ import java.util.concurrent.ConcurrentHashMap;
 @Data
 public class OrderContext {
 
-    public OrderType orderType;
+    public SceneTypeEnum sceneType;
 
     public String orderId;
 

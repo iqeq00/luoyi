@@ -1,6 +1,7 @@
 package com.luoyi.example.order.factory;
 
 import com.luoyi.example.order.enums.OrderType;
+import com.luoyi.example.order.enums.SceneTypeEnum;
 import com.luoyi.example.order.handler.OrderHandler;
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,21 +21,22 @@ public class OrderHandlerFactory {
     @Autowired
     private List<OrderHandler> handlers;
 
-    private final static Map<OrderType, List<OrderHandler>> handlerCache = new ConcurrentHashMap<>();
+    private final static Map<SceneTypeEnum, List<OrderHandler>> handlerCache = new ConcurrentHashMap<>();
 
     @PostConstruct
     public void init() {
         // 预构建不同订单类型的处理器链
-        Arrays.stream(OrderType.values()).forEach(type -> {
+        Arrays.stream(SceneTypeEnum.values()).forEach(sceneType -> {
             List<OrderHandler> chain = handlers.stream()
-                    .filter(handler -> handler.supportedTypes().contains(type))
-                    .sorted(Comparator.comparingInt(OrderHandler::getOrder))
-                    .collect(Collectors.toList());
-            handlerCache.put(type, chain);
+                .filter(handler -> handler.supportedTypes().contains(sceneType))
+                .sorted(Comparator.comparingInt(OrderHandler::getOrder))
+                .collect(Collectors.toList());
+            handlerCache.put(sceneType, chain);
         });
     }
 
-    public static OrderHandlerChain createChain(OrderType type) {
-        return new OrderHandlerChain(handlerCache.get(type));
+    public OrderHandlerChain createChain(SceneTypeEnum sceneType) {
+        return new OrderHandlerChain(handlerCache.get(sceneType));
     }
+
 }

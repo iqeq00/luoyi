@@ -2,8 +2,8 @@ package com.luoyi.example.order.service;
 
 import com.luoyi.example.order.context.OrderContext;
 import com.luoyi.example.order.dto.EntityOrderDTO;
-import com.luoyi.example.order.enums.OrderType;
-import com.luoyi.example.order.vo.OrderResult;
+import com.luoyi.example.order.enums.SceneTypeEnum;
+import com.luoyi.example.order.vo.Result;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -18,18 +18,17 @@ public class EntityOrderService extends AbstractOrderService<EntityOrderDTO> {
     protected OrderContext buildContext(EntityOrderDTO dto) {
 
         OrderContext orderContext = new OrderContext();
-        orderContext.setOrderType(dto.getOrderType());
         System.out.println("实物执行上下文构建");
         return orderContext;
     }
 
     @Override
-    protected OrderResult postProcess(OrderContext context) {
-        return new OrderResult(context.getOrderId());
+    protected Result postProcess(OrderContext context) {
+        return Result.success(context.getOrderId());
     }
 
     @Override
-    public OrderType getOrderType() {
-        return OrderType.ENTITY;
+    public String getSceneType() {
+        return SceneTypeEnum.ENTITY.getValue();
     }
 }
