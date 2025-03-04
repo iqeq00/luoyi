@@ -1,8 +1,6 @@
 package com.luoyi.example.order.handler;
 
 import com.luoyi.example.order.context.OrderContext;
-import com.luoyi.example.order.dto.BaseOrderDTO;
-import com.luoyi.example.order.enums.OrderType;
 import com.luoyi.example.order.enums.SceneTypeEnum;
 import org.springframework.stereotype.Service;
 
@@ -24,12 +22,19 @@ public class RedPacketHandler implements OrderHandler {
     }
 
     @Override
-    public int getOrder() {
-        return 11;
+    public Integer getSorted() {
+        return 0;
+    }
+
+
+    @Override
+    public Set<SceneTypeEnum> supportedSceneTypes() {
+        return EnumSet.allOf(SceneTypeEnum.class);
     }
 
     @Override
-    public Set<SceneTypeEnum> supportedTypes() {
-        return EnumSet.allOf(SceneTypeEnum.class);
+    public String toString() {
+        return this.getClass().getName();
     }
+
 }

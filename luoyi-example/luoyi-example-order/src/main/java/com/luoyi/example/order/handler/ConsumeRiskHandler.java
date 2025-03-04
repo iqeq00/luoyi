@@ -1,5 +1,6 @@
 package com.luoyi.example.order.handler;
 
+import com.luoyi.example.order.context.HandlerSort;
 import com.luoyi.example.order.context.OrderContext;
 import com.luoyi.example.order.enums.SceneTypeEnum;
 import org.springframework.stereotype.Service;
@@ -8,16 +9,19 @@ import java.util.EnumSet;
 import java.util.Set;
 
 /**
- * 优惠券处理
+ * 消费风控 handler
  */
 @Service
-public class CouponHandler implements OrderHandler {
+public class ConsumeRiskHandler implements OrderHandler {
 
-    // 优惠券服务
+    // 注入卡券风控门面
+//    private final ConsumeRiskFacade consumeRiskFacade;
 
     @Override
     public void handle(OrderContext context) {
-        System.out.println("查询优惠券，");
+        // 消费风控
+        // consumeRiskFacade.consumeRisk(user.getAppCode(), user.getUserId(), ConsumeRiskScene.CARD, dto.getOrderAmount());
+        System.out.println("消费风控处理");
     }
 
     @Override
@@ -27,7 +31,7 @@ public class CouponHandler implements OrderHandler {
 
     @Override
     public Set<SceneTypeEnum> supportedSceneTypes() {
-        return EnumSet.of(SceneTypeEnum.ENTITY);
+        return EnumSet.of(SceneTypeEnum.CARD);
     }
 
     @Override

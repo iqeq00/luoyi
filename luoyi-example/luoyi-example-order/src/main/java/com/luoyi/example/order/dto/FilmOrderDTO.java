@@ -5,7 +5,7 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 @Data
-public class FILMOrderDTO extends BaseOrderDTO {
+public class FilmOrderDTO extends BaseOrderDTO {
 
     /**
      * 场次id

@@ -21,14 +21,14 @@ class LuoyiExampleOrderApplicationTests {
     @Test
     void contextLoads() {
         CardOrderDTO cardOrderDTO = new CardOrderDTO();
-        cardOrderDTO.setOrderType(OrderType.CARD);
+        cardOrderDTO.setSceneType(OrderType.CARD.name());
         cardOrderService.createOrder(cardOrderDTO);
     }
 
     @Test
     void contextLoads1() {
         EntityOrderDTO entityOrderDTO = new EntityOrderDTO();
-        entityOrderDTO.setOrderType(OrderType.ENTITY);
+        entityOrderDTO.setSceneType(OrderType.ENTITY.name());
         entityOrderService.createOrder(entityOrderDTO);
     }
 
