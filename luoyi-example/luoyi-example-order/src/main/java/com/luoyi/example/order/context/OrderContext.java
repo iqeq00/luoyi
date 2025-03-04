@@ -1,12 +1,16 @@
 package com.luoyi.example.order.context;
 
-import com.luoyi.example.order.enums.OrderType;
 import com.luoyi.example.order.enums.SceneTypeEnum;
 import lombok.Data;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+/**
+ * 订单执行上下文
+ *
+ * @author yaojinchi
+ */
 @Data
 public class OrderContext {
 
@@ -24,4 +28,5 @@ public class OrderContext {
     public <T> void setAttribute(AttributeKey<T> key, T value) {
         attributes.put(key, value);
     }
+
 }

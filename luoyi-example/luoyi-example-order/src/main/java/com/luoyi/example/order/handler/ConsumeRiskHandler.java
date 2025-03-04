@@ -1,8 +1,9 @@
 package com.luoyi.example.order.handler;
 
-import com.luoyi.example.order.context.HandlerSort;
+import com.alibaba.fastjson2.annotation.JSONType;
 import com.luoyi.example.order.context.OrderContext;
 import com.luoyi.example.order.enums.SceneTypeEnum;
+import com.luoyi.example.order.json.ClassNameSerializer;
 import org.springframework.stereotype.Service;
 
 import java.util.EnumSet;
@@ -12,6 +13,7 @@ import java.util.Set;
  * 消费风控 handler
  */
 @Service
+@JSONType(serializer = ClassNameSerializer.class)
 public class ConsumeRiskHandler implements OrderHandler {
 
     // 注入卡券风控门面
@@ -32,11 +34,6 @@ public class ConsumeRiskHandler implements OrderHandler {
     @Override
     public Set<SceneTypeEnum> supportedSceneTypes() {
         return EnumSet.of(SceneTypeEnum.CARD);
-    }
-
-    @Override
-    public String toString() {
-        return this.getClass().getName();
     }
 
 }

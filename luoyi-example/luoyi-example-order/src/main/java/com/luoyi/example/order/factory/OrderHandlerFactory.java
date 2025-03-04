@@ -1,9 +1,9 @@
 package com.luoyi.example.order.factory;
 
 import com.alibaba.fastjson2.JSON;
-import com.luoyi.example.order.enums.OrderType;
 import com.luoyi.example.order.enums.SceneTypeEnum;
 import com.luoyi.example.order.handler.OrderHandler;
+import com.luoyi.example.order.handler.OrderHandlerChain;
 import jakarta.annotation.PostConstruct;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,28 +18,29 @@ import java.util.stream.Collectors;
 
 /**
  * 订单责任链工厂
+ *
+ * @author yaojinchi
  */
 @Slf4j
 @Component
 public class OrderHandlerFactory {
 
-    // 自动注入所有处理器
     @Autowired
     private List<OrderHandler> handlers;
 
-    private static Map<SceneTypeEnum, List<OrderHandler>> handlerCache = new ConcurrentHashMap<>();
+    private Map<SceneTypeEnum, List<OrderHandler>> handlerCache = new ConcurrentHashMap<>();
 
     @PostConstruct
     public void init() {
-        // 预构建不同订单类型的处理器链
+
         Arrays.stream(SceneTypeEnum.values()).forEach(sceneType -> {
             List<OrderHandler> chains = handlers.stream()
-                .filter(handler -> handler.supportedSceneTypes().contains(sceneType))
-                .sorted(Comparator.comparingInt(OrderHandler::getSorted))
-                .collect(Collectors.toList());
+                    .filter(handler -> handler.supportedSceneTypes().contains(sceneType))
+                    .sorted(Comparator.comparingInt(OrderHandler::getSorted))
+                    .collect(Collectors.toList());
             handlerCache.put(sceneType, chains);
         });
-        log.info("订单各场景责任链:{}", JSON.toJSONString(handlerCache));
+        log.info("订单全场景责任链条:{}", JSON.toJSONString(handlerCache));
     }
 
     public OrderHandlerChain createChain(SceneTypeEnum sceneType) {

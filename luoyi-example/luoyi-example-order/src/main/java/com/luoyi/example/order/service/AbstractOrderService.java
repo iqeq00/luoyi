@@ -4,7 +4,7 @@ import com.alibaba.fastjson2.JSON;
 import com.luoyi.example.order.context.OrderContext;
 import com.luoyi.example.order.dto.BaseOrderDTO;
 import com.luoyi.example.order.enums.SceneTypeEnum;
-import com.luoyi.example.order.factory.OrderHandlerChain;
+import com.luoyi.example.order.handler.OrderHandlerChain;
 import com.luoyi.example.order.factory.OrderHandlerFactory;
 import com.luoyi.example.order.vo.Result;
 import lombok.extern.slf4j.Slf4j;
@@ -42,8 +42,8 @@ public abstract class AbstractOrderService<T extends BaseOrderDTO> {
     }
 
     private void validateBase(T dto) {
-        System.out.println("校验公共参数");
-        log.info("入参：{}", JSON.toJSONString(dto));
+
+        log.info("{}订单入参：{}", SceneTypeEnum.getInstance(dto.getSceneType()).getLabel(), JSON.toJSONString(dto));
     }
 
     // 抽象方法：子类实现业务参数校验
