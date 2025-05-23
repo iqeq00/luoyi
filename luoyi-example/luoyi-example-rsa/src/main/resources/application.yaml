@@ -1,0 +1,6 @@
+server:
+  port: 18098
+
+spring:
+  application:
+    name: luoyi-example-rsa

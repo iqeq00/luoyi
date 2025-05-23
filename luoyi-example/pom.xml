@@ -24,6 +24,7 @@
         <module>luoyi-example-yihu</module>
         <module>luoyi-example-mybatis</module>
         <module>luoyi-example-order</module>
+        <module>luoyi-example-rsa</module>
     </modules>
 
 </project>
