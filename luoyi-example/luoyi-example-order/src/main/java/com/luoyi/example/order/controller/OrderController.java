@@ -26,6 +26,7 @@ public class OrderController {
     @PostMapping("/order")
     public Result<CreateOrderResVO> createOrder(@Valid @RequestBody BaseOrderDTO dto) {
 
+        System.out.println(dto.hashCode());
         return orderFacade.createOrder(dto);
     }
 

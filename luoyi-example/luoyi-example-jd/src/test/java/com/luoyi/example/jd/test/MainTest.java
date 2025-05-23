@@ -1,6 +1,7 @@
 package com.luoyi.example.jd.test;
 
 import cn.hutool.core.date.LocalDateTimeUtil;
+import cn.hutool.core.util.StrUtil;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -10,7 +11,7 @@ import java.util.TimerTask;
 public class MainTest {
 
     public static void main(String[] args) {
-        System.out.println("111");
+//        System.out.println("111");
 //        List<String> elements = List.of("Element1", "Element2", "Element3", "Element4");
 //        Timer timer = new Timer(true); // 创建一个守护线程的Timer
 
@@ -32,5 +33,15 @@ public class MainTest {
 //
 //        // 每2分钟执行一次任务
 //        timer.scheduleAtFixedRate(printTask, 0, 5 * 1000);
+
+        List<String> elements = List.of("Element1", "Element2", "Element3", "Element4");
+
+        Object[] args1 = new Object[5];
+        args1[0] = LocalDateTime.now();
+        args1[1] = "1111";
+        args1[2] = 222;
+        args1[3] = elements;
+
+        System.out.println(StrUtil.join(",", args1));
     }
 }

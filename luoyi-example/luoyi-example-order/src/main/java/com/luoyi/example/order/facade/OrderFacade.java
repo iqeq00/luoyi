@@ -16,6 +16,7 @@ public class OrderFacade {
     /**
      * 下订单
      */
+    // 加锁
     public Result<CreateOrderResVO> createOrder(BaseOrderDTO dto) {
 
         return orderServiceFactory.getInstance(dto.getSceneType()).createOrder(dto);

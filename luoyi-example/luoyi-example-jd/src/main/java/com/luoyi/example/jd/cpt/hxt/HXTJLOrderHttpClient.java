@@ -65,7 +65,7 @@ public class HXTJLOrderHttpClient {
 
     public static void main(String[] args) {
         TreeMap<String, Object> signParamMap = new TreeMap<>();
-        signParamMap.put("jdOrderId", "306477961473");
+        signParamMap.put("jdOrderId", "312673113799");
         String res = post(signParamMap);
         System.out.println(res);
     }

@@ -3,6 +3,7 @@ package com.luoyi.example.order.dto;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 /**
  * @describe: 卡券信息
