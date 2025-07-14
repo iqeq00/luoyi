@@ -4,3 +4,9 @@ server:
 spring:
   application:
     name: luoyi-example-order
+
+#
+#logging:
+#  level:
+#    org.springframework.statemachine=DEBUG
+#  logging.level.org.springframework.context=TRACE

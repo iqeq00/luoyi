@@ -641,6 +641,13 @@
                     </exclusion>
                 </exclusions>
             </dependency>
+
+
+            <dependency>
+                <groupId>org.springframework.statemachine</groupId>
+                <artifactId>spring-statemachine-starter</artifactId>
+                <version>4.0.1</version>
+            </dependency>
             <!--<dependency>
                 <groupId>xerces</groupId>
                 <artifactId>xercesImpl</artifactId>
