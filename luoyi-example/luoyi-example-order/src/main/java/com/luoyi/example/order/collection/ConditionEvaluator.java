@@ -1,6 +1,7 @@
 package com.luoyi.example.order.collection;
 
 import cn.hutool.core.util.ObjUtil;
+import cn.hutool.json.JSONUtil;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
@@ -33,8 +34,9 @@ public class ConditionEvaluator {
      * 检查对象是否满足单个条件
      * 流程：获取字段值 -> 解析条件类型 -> 获取验证函数 -> 执行验证
      */
-    private static boolean checkSingleCondition(Object obj, Condition condition) {
+    public static boolean checkSingleCondition(Object obj, Condition condition) {
 
+//        System.out.println(JSONUtil.toJsonStr(condition));
         return getFieldValue(obj, condition.getField()).flatMap(fieldValue -> getConditionType(condition.getType())
             .flatMap(type -> getValidatorFunction(type).map(validator -> validator.apply(fieldValue, condition.getValues())))).orElse(false);
     }
