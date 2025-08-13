@@ -3,6 +3,7 @@ package com.luoyi.example.order.collection;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 /**
  * 条件测试对象1
@@ -31,5 +32,10 @@ public class ConditionEntity1 implements Serializable {
      * 标准销售价
      */
     private Long standardSalePrice;
+
+    /**
+     * 入住日期
+     */
+    private LocalDateTime createTime;
 
 }
