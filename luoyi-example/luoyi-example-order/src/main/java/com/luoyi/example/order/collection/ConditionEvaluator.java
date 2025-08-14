@@ -15,7 +15,7 @@ import java.util.function.BiFunction;
  *
  * @author yaojinchi
  */
-//@NoArgsConstructor(access = AccessLevel.PRIVATE)
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class ConditionEvaluator {
 
     /**
@@ -36,7 +36,6 @@ public class ConditionEvaluator {
      */
     public static boolean checkSingleCondition(Object obj, Condition condition) {
 
-//        System.out.println(JSONUtil.toJsonStr(condition));
         return getFieldValue(obj, condition.getField()).flatMap(fieldValue -> getConditionType(condition.getType())
             .flatMap(type -> getValidatorFunction(type).map(validator -> validator.apply(fieldValue, condition.getValues())))).orElse(false);
     }
@@ -76,7 +75,7 @@ public class ConditionEvaluator {
      */
     private static Optional<ConditionType> getConditionType(String typeCode) {
 
-        return ConditionType.fromCode(typeCode);
+        return ConditionType.getInstance(typeCode);
     }
 
     /**

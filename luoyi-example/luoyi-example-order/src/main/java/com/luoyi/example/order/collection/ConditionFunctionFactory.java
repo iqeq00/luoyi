@@ -3,7 +3,6 @@ package com.luoyi.example.order.collection;
 import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.date.DateTime;
 import cn.hutool.core.date.DateUtil;
-import cn.hutool.core.util.ObjUtil;
 import cn.hutool.core.util.StrUtil;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
@@ -19,7 +18,7 @@ import java.util.function.Function;
  *
  * @author yaojinchi
  */
-//@NoArgsConstructor(access = AccessLevel.PRIVATE)
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class ConditionFunctionFactory {
 
     // 存储条件类型与验证函数的映射
@@ -67,13 +66,8 @@ public class ConditionFunctionFactory {
      */
     private static boolean checkEqual(Object fieldValue, List<String> values) {
 
-        if (CollectionUtil.isEmpty(values)) {
-            return false;
-        }
-        if (ObjUtil.isNull(fieldValue)) {
-            return false;
-        }
-        return values.stream().anyMatch(value -> isValueMatch(fieldValue, value));
+        return Optional.ofNullable(values).filter(CollectionUtil::isNotEmpty).flatMap(vals -> Optional.ofNullable(fieldValue)
+            .map(fieldVal -> vals.stream().anyMatch(value -> isValueMatch(fieldVal, value)))).orElse(false);
     }
 
     /**
@@ -147,37 +141,24 @@ public class ConditionFunctionFactory {
 
     /**
      * 获取比较结果
+     *
+     * 数字比较 -> 时间比较 -> 字符串比较
      */
     private static Optional<Integer> getComparisonResult(Object fieldValue, String value) {
 
-        Optional<Integer> numberCompare = compareAsNumbers(fieldValue, value);
-        if (numberCompare.isPresent()) {
-            return numberCompare;
-        }
-        Optional<Integer> dateCompare = compareAsDates(fieldValue, value);
-        if (dateCompare.isPresent()) {
-            return dateCompare;
-        }
-        return compareAsStrings(fieldValue, value);
+        return compareAsNumbers(fieldValue, value).or(() -> compareAsDates(fieldValue, value)).or(() -> compareAsStrings(fieldValue, value));
     }
 
     /**
      * 检查字段值与单个条件值是否匹配
+     *
+     * 检查非空 -> 数字匹配 -> 时间匹配 -> 字符串匹配
      */
     private static boolean isValueMatch(Object fieldValue, String value) {
 
-        if (ObjUtil.isNull(fieldValue) || ObjUtil.isNull(value)) {
-            return false;
-        }
-        Optional<Integer> numberCompare = compareAsNumbers(fieldValue, value);
-        if (numberCompare.isPresent()) {
-            return numberCompare.get() == 0;
-        }
-        Optional<Integer> dateCompare = compareAsDates(fieldValue, value);
-        if (dateCompare.isPresent()) {
-            return dateCompare.get() == 0;
-        }
-        return fieldValue.toString().equals(value);
+        return Optional.ofNullable(fieldValue).flatMap(fieldVal -> Optional.ofNullable(value).flatMap(val -> compareAsNumbers(fieldVal, val).map(v -> v == 0)
+            .or(() -> compareAsDates(fieldVal, val).map(v -> v == 0)).or(() -> Optional.of(fieldVal.toString().equals(val)))))
+            .orElse(false);
     }
 
     /**
@@ -193,13 +174,8 @@ public class ConditionFunctionFactory {
      */
     private static Optional<Integer> compareAsDates(Object fieldValue, String value) {
 
-        try {
-            DateTime fieldDate = DateUtil.parse(fieldValue.toString());
-            DateTime valueDate = DateUtil.parse(value);
-            return Optional.of(fieldDate.compareTo(valueDate));
-        } catch (Exception e) {
-            return Optional.empty();
-        }
+        return Optional.ofNullable(fieldValue).map(Object::toString).flatMap(fieldStr -> parseDate(fieldStr)
+            .flatMap(fieldDate -> parseDate(value).map(valueDate -> fieldDate.compareTo(valueDate))));
     }
 
     /**
@@ -207,7 +183,19 @@ public class ConditionFunctionFactory {
      */
     private static Optional<Integer> compareAsStrings(Object fieldValue, String value) {
 
-        return Optional.ofNullable(fieldValue).map(Object::toString).map(fieldStr -> value != null ? fieldStr.compareTo(value) : 1);
+        return Optional.ofNullable(fieldValue).map(Object::toString).map(fieldStr -> null != value ? fieldStr.compareTo(value) : 1);
+    }
+
+    /**
+     * 解析日期字符串为DateTime
+     */
+    private static Optional<DateTime> parseDate(String dateStr) {
+
+        try {
+            return Optional.of(DateUtil.parse(dateStr));
+        } catch (Exception e) {
+            return Optional.empty();
+        }
     }
 
     /**
