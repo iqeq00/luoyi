@@ -1,7 +1,5 @@
 package com.luoyi.example.order.collection;
 
-import cn.hutool.core.util.ObjUtil;
-import cn.hutool.json.JSONUtil;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
@@ -60,15 +58,15 @@ public class ConditionEvaluator {
      */
     private static Optional<Field> findField(Class<?> clazz, String fieldName) {
 
-        if (ObjUtil.isNull(clazz) || Object.class.equals(clazz) || ObjUtil.isNull(fieldName)) {
-            return Optional.empty();
-        }
-        try {
-            return Optional.of(clazz.getDeclaredField(fieldName));
-        } catch (NoSuchFieldException e) {
-            return findField(clazz.getSuperclass(), fieldName);
-        }
+        return Optional.ofNullable(clazz).filter(c -> !Object.class.equals(c)).flatMap(c -> Optional.ofNullable(fieldName).flatMap(name -> {
+            try {
+                return Optional.of(c.getDeclaredField(name));
+            } catch (NoSuchFieldException e) {
+                return findField(c.getSuperclass(), name);
+            }
+        }));
     }
+
 
     /**
      * 解析条件类型
