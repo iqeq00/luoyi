@@ -3,10 +3,13 @@ package com.luoyi.example.order.collection;
 import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.date.DateTime;
 import cn.hutool.core.date.DateUtil;
+import cn.hutool.core.util.NumberUtil;
 import cn.hutool.core.util.StrUtil;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -81,7 +84,7 @@ public class ConditionFunctionFactory {
     /**
      * range条件：判断字段值是否在values[0]和values[1]之间（包含边界）
      */
-    private static boolean checkRange(Object fieldValue, List<String> values) {
+    public static boolean checkRange(Object fieldValue, List<String> values) {
 
         return Optional.ofNullable(values).filter(vals -> vals.size() >= 2)
             .flatMap(vals -> compareWithValue(fieldValue, vals.get(0), val -> val >= 0)
@@ -91,18 +94,36 @@ public class ConditionFunctionFactory {
 
     /**
      * gt条件：判断字段值是否大于values[0]
+     * 特殊处理：时间类型字段且值为数字时，转换为区间校验
      */
     private static boolean checkGreaterThan(Object fieldValue, List<String> values) {
 
-        return checkComparison(fieldValue, values, val -> val > 0);
+        return handleTimeTypeGreaterThan(fieldValue, values).orElseGet(() -> checkComparison(fieldValue, values, val -> val > 0));
+    }
+
+    /**
+     * gt特殊逻辑: 处理时间类型字段
+     */
+    private static Optional<Boolean> handleTimeTypeGreaterThan(Object fieldValue, List<String> values) {
+
+        return resolveTimeTypeAndDays(fieldValue, values).map(ConditionFunctionAdapter::calculateTimeRangeGt).map(range -> checkRange(fieldValue, range));
     }
 
     /**
      * lt条件：判断字段值是否小于values[0]
+     * 特殊处理：时间类型字段且值为数字时，转换为区间校验
      */
     private static boolean checkLessThan(Object fieldValue, List<String> values) {
 
-        return checkComparison(fieldValue, values, val -> val < 0);
+        return handleTimeTypeLessThan(fieldValue, values).orElseGet(() -> checkComparison(fieldValue, values, val -> val < 0));
+    }
+
+    /**
+     * lt特殊逻辑: 处理时间类型字段
+     */
+    private static Optional<Boolean> handleTimeTypeLessThan(Object fieldValue, List<String> values) {
+
+        return resolveTimeTypeAndDays(fieldValue, values).map(ConditionFunctionAdapter::calculateTimeRangeLt).map(range -> checkRange(fieldValue, range));
     }
 
     /**
@@ -122,6 +143,14 @@ public class ConditionFunctionFactory {
     }
 
     // ------------------------------ 通用工具方法 ------------------------------
+
+    /**
+     * 公共的时间类型处理前置逻辑
+     */
+    private static Optional<Integer> resolveTimeTypeAndDays(Object fieldValue, List<String> values) {
+
+        return Optional.of(fieldValue).filter(ConditionFunctionAdapter::isTimeType).filter(val -> ConditionFunctionAdapter.isParsableAsDays(values)).flatMap(val -> ConditionFunctionAdapter.parseDays(values.get(0)));
+    }
 
     /**
      * 通用比较逻辑
