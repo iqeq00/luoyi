@@ -9,10 +9,7 @@ import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.BiFunction;
 import java.util.function.Function;
@@ -70,7 +67,15 @@ public class ConditionFunctionFactory {
     private static boolean checkEqual(Object fieldValue, List<String> values) {
 
         return Optional.ofNullable(values).filter(CollectionUtil::isNotEmpty).flatMap(vals -> Optional.ofNullable(fieldValue)
-            .map(fieldVal -> vals.stream().anyMatch(value -> isValueMatch(fieldVal, value)))).orElse(false);
+                .map(fieldVal -> doCheckEqual(fieldVal, vals))).orElse(false);
+    }
+
+    private static boolean doCheckEqual(Object fieldVal, List<String> vals) {
+
+        if (fieldVal instanceof Collection<?>) {
+            return ((Collection<?>) fieldVal).stream().anyMatch(item -> vals.stream().anyMatch(val -> isValueMatch(item, val)));
+        }
+        return vals.stream().anyMatch(value -> isValueMatch(fieldVal, value));
     }
 
     /**
@@ -239,6 +244,12 @@ public class ConditionFunctionFactory {
                 return Optional.empty();
             }
         });
+    }
+
+    public static void main(String[] args) {
+
+        boolean b = checkEqual(Arrays.asList("1", "5"), Arrays.asList("1", "2", "3", "4"));
+        System.out.println(b);
     }
 
 }

@@ -1,0 +1,57 @@
+{
+  "properties": [
+    {
+      "name": "luoyi.log.enabled",
+      "type": "java.lang.Boolean",
+      "description": "是否启用日志监控功能",
+      "defaultValue": true
+    },
+    {
+      "name": "luoyi.log.default-unit",
+      "type": "java.util.concurrent.TimeUnit",
+      "description": "默认时间单位",
+      "defaultValue": "MILLISECONDS"
+    },
+    {
+      "name": "luoyi.log.default-log-args",
+      "type": "java.lang.Boolean",
+      "description": "默认是否记录方法参数",
+      "defaultValue": false
+    },
+    {
+      "name": "luoyi.log.default-log-result",
+      "type": "java.lang.Boolean",
+      "description": "默认是否记录方法返回值",
+      "defaultValue": false
+    },
+    {
+      "name": "luoyi.log.global-warn-threshold",
+      "type": "java.lang.Long",
+      "description": "全局警告阈值（单位与default-unit一致），超过此值将记录为WARN级别",
+      "defaultValue": -1
+    }
+  ],
+  "hints": [
+    {
+      "name": "luoyi.log.default-unit",
+      "values": [
+        {
+          "value": "NANOSECONDS",
+          "description": "纳秒"
+        },
+        {
+          "value": "MICROSECONDS",
+          "description": "微秒"
+        },
+        {
+          "value": "MILLISECONDS",
+          "description": "毫秒"
+        },
+        {
+          "value": "SECONDS",
+          "description": "秒"
+        }
+      ]
+    }
+  ]
+}

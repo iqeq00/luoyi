@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>XLS 处理器</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input[type="text"], input[type="file"] {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        input[type="checkbox"] {
+            margin-right: 10px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+<h1>XLS 文件处理</h1>
+
+<div class="form-group">
+    <label for="keyParam">加密key:</label>
+    <input type="text" id="keyParam" placeholder="请输入加密key">
+</div>
+
+<!--<div class="form-group">-->
+<!--    <label>-->
+<!--        <input type="checkbox" id="enableFeature"> 启用增强功能-->
+<!--    </label>-->
+<!--</div>-->
+
+<div class="form-group">
+    <label for="xlsFile">选择 Excel 文件:</label>
+    <input type="file" id="xlsFile" accept=".xls,.xlsx">
+</div>
+
+<button onclick="processAndExport()">处理并导出</button>
+
+<script>
+    function processAndExport() {
+        console.log("按钮点击事件触发");
+        const fileInput = document.getElementById('xlsFile');
+        const keyParam = document.getElementById('keyParam').value;
+        // const enableFeature = document.getElementById('enableFeature').checked;
+        const file = fileInput.files[0];
+
+        if (!file) {
+            alert('请选择文件');
+            return;
+        }
+
+        const formData = new FormData();
+        formData.append('file', file);
+        formData.append('keyParam', keyParam);
+        // formData.append('enableFeature', enableFeature);
+
+        fetch('/api/xls/process-and-export', {
+            method: 'POST',
+            body: formData
+        })
+            .then(response => {
+                if (!response.ok) throw new Error('处理失败');
+                return response.blob();
+            })
+            .then(blob => {
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'processed_data.xlsx';
+                document.body.appendChild(a);
+                a.click();
+                window.URL.revokeObjectURL(url);
+                document.body.removeChild(a);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('处理失败: ' + error.message);
+            });
+    }
+</script>
+</body>
+</html>

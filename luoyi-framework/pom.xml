@@ -29,6 +29,7 @@
         <module>luoyi-common</module>
         <module>luoyi-spring-boot-starter-excel</module>
         <module>luoyi-spring-boot-starter-job</module>
+        <module>luoyi-spring-boot-starter-log</module>
         <module>luoyi-spring-boot-starter-monitor</module>
         <module>luoyi-spring-boot-starter-mq</module>
         <module>luoyi-spring-boot-starter-mybatis</module>
