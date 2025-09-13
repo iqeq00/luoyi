@@ -4,6 +4,7 @@ import com.alibaba.excel.EasyExcel;
 import com.luoyi.example.card.listener.XlsDataListener;
 import com.luoyi.example.card.model.XlsData;
 import com.luoyi.example.card.util.EncryptUtil;
+import com.luoyi.framework.log.annotation.TimeTrack;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -21,6 +22,7 @@ import java.util.stream.Collectors;
 @Service
 public class XlsService {
 
+    @TimeTrack(value = "读取xls", logArgs = true, logResult = true, enableDetail=true)
     public void processAndExport(String key, MultipartFile file, HttpServletResponse response) throws IOException {
         // 1. 读取Excel数据
         List<XlsData> dataList = EasyExcel.read(file.getInputStream(), XlsData.class, new XlsDataListener())
